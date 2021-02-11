@@ -114,7 +114,7 @@ class WorkdayResponse(object):
 
 
 class BaseSoapApiClient(object):
-    def __init__(self, name, session, wsdl_url, authentication, proxy_url=None):
+    def __init__(self, name, session, wsdl_url, authentication, proxy_url=None, strict=True):
         """
         :param name: Name of this API
         :type  name: ``str``
@@ -135,6 +135,7 @@ class BaseSoapApiClient(object):
         self._client = zeep.Client(
             wsdl=wsdl_url,
             transport=zeep.transports.Transport(session=session),
+            strict=strict,
             **auth_kwargs
         )
 

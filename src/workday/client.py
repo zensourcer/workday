@@ -34,7 +34,7 @@ class WorkdayClient(object):
     _authentication = None
 
     def __init__(
-        self, wsdls, authentication, proxy_url=None, disable_ssl_verification=False
+        self, wsdls, authentication, proxy_url=None, disable_ssl_verification=False, strict=True
     ):
         """
         Instantiate a Workday API client
@@ -61,6 +61,7 @@ class WorkdayClient(object):
 
         self.proxy_url = proxy_url
         self._session = requests.Session()
+        self._strict = strict
 
         if proxy_url:
             self._session.proxies = {"https": proxy_url}
@@ -88,5 +89,6 @@ class WorkdayClient(object):
                     session=self._session,
                     wsdl_url=self._apis[api] + "?wsdl",
                     authentication=self._authentication,
+                    strict=self._strict
                 )
             return self._apis[api]
