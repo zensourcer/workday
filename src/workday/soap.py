@@ -132,10 +132,11 @@ class BaseSoapApiClient(object):
         :type  proxy_url: ``str``
         """
         auth_kwargs = authentication.kwargs
+        settings = zeep.Settings(strict=strict)
         self._client = zeep.Client(
             wsdl=wsdl_url,
             transport=zeep.transports.Transport(session=session),
-            strict=strict,
+            settings=settings,
             **auth_kwargs
         )
 
