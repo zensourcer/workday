@@ -150,7 +150,7 @@ class BaseSoapApiClient(object):
 
         def call_soap_method(*args, **kwargs):
             try:
-                result = self._client.service.attr(*args, **kwargs)
+                result = getattr(self._client.service, attr)(*args, **kwargs)
                 return WorkdayResponse(
                     result,
                     service=self._client.service,
