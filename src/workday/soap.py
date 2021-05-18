@@ -94,6 +94,11 @@ class WorkdayResponse(object):
 
     @property
     def total_results(self):
+        # For some reason, response_results can be a list for some API
+        # So we index into a list if we have to
+        if isinstance(self._response["Response_Results"], list):
+            return int(self._response["Response_Results"][0]["Total_Results"])
+
         return int(self._response["Response_Results"]["Total_Results"])
 
     @property
